@@ -1,0 +1,20 @@
+const express = require('express');
+const allowReadWrite = require('../middlewares/allowReadWrite');
+const uploadDoc = require('../middlewares/uploadDoc');
+const deleteDoc = require('./deleteDoc');
+const docs = require('./docs');
+const downloadDoc = require('./downloadDoc');
+const login = require('./login');
+const profile = require('./profile');
+const readDoc = require('./readDoc');
+const register = require('./register');
+
+const router = express.Router();
+router.post('/api/signup', register);
+router.post('/api/login', login);
+router.get('/api/auth/profile', allowReadWrite, profile);
+router.get('/api/auth/read/*', readDoc);
+router.get('/api/auth/docs', allowReadWrite, docs);
+router.delete('/api/auth/docs', allowReadWrite, deleteDoc);
+router.post('/api/auth/dowload', allowReadWrite, uploadDoc, downloadDoc);
+module.exports = router;
